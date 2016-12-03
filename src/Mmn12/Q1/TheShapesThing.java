@@ -44,6 +44,7 @@ public class TheShapesThing {
             MyShape cloneShape = (MyShape) shape.clone();
             cloneShape._p1.move(10, 10);
             cloneShape._p1.move(10, 10);
+            if(cloneShape.isFill())
             cloneShape._color = Color.gray;
             _cloneShapes.add(cloneShape);
 

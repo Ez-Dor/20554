@@ -44,7 +44,10 @@ public abstract class MyBoundedShape extends MyShape {
         }
         super.set_p1(p2);
     }
+    /*
+*/
 
+    @Override
     public boolean isFill() {
         return _fill;
     }

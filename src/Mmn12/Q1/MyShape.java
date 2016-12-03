@@ -48,6 +48,10 @@ public abstract class MyShape implements Cloneable{
 
     }
 
+    public boolean isFill() {
+        return false;
+    }
+
     public int getHeight() {
         return (int) Math.abs(_p1.getY() - _p2.getY());
 
