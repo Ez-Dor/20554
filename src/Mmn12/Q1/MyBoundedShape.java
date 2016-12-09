@@ -10,7 +10,7 @@ public abstract class MyBoundedShape extends MyShape {
 
     public MyBoundedShape(Point p1, Point p2, Color color, boolean fill) {
         super(p1, p2, color);
-        if (p2.getX() < p1.getX() || p2.getY() < p1.getY()) {
+        if (p2.getX() < p1.getX() || p2.getY() > p1.getY()) {
             throw new IllegalArgumentException("\nP1 should present the north-est point and P2 should present the south-west point for the shape." +
                     "\nPlease check your starts points!");
         }
@@ -29,7 +29,7 @@ public abstract class MyBoundedShape extends MyShape {
 
     @Override
     public void set_p1(Point p1) {
-        if (_p2.getX() < p1.getX() || _p2.getY() < p1.getY()) {
+        if (_p2.getX() < p1.getX() || _p2.getY() > p1.getY()) {
             throw new IllegalArgumentException("\nP1 should present the north-est point and P2 should present the south-west point for the shape." +
                     "\nPlease check your starts points!");
         }
@@ -38,14 +38,12 @@ public abstract class MyBoundedShape extends MyShape {
 
     @Override
     public void set_p2(Point p2) {
-        if (p2.getX() < _p1.getX() || p2.getY() < _p1.getY()) {
+        if (p2.getX() < _p1.getX() || p2.getY() > _p1.getY()) {
             throw new IllegalArgumentException("\nP1 should present the north-est point and P2 should present the south-west point for the shape." +
                     "\nPlease check your starts points!");
         }
-        super.set_p1(p2);
+        super.set_p2(p2);
     }
-    /*
-*/
 
     @Override
     public boolean isFill() {
@@ -57,6 +55,6 @@ public abstract class MyBoundedShape extends MyShape {
     }
 
     public boolean equals(MyBoundedShape boundedShape) {
-        return this.getWidth() == boundedShape.getWidth() && this.getHeight() == boundedShape.getHeight();
+        return this.getShapeWidth() == boundedShape.getShapeWidth() && this.getShapeHeight() == boundedShape.getShapeHeight();
     }
 }

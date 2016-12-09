@@ -10,14 +10,13 @@ public class MyOval extends MyBoundedShape {
     }
 
     public void draw(Graphics g) {
-
+        super.paintComponent(g);
+        g.setColor(get_color());
         if (isFill()) {
-            g.fillOval((int) _p1.getX(), (int) _p2.getY(), (int) _p2.getX(), (int) _p2.getY());
+            g.fillOval((int) _p1.getX(), (int) _p1.getY(), getShapeWidth(), getShapeHeight());
         } else {
-            g.drawOval((int) _p1.getX(), (int) _p1.getY(), (int) _p2.getX(), (int) _p2.getY());
+            g.drawOval((int) _p1.getX(), (int) _p1.getY(), getShapeWidth(), getShapeHeight());
         }
 
-
-        g.setColor(get_color());
     }
 }

@@ -12,12 +12,12 @@ public class MyLine extends MyShape {
     }
 
     public void draw(Graphics g) {
-
-        g.drawLine((int) _p1.getX(), (int) _p1.getY(), (int) _p2.getX(), (int) _p2.getY());
+        super.paintComponent(g);
         g.setColor(get_color());
+        g.drawLine((int) _p1.getX(), (int) _p1.getY(), (int) _p2.getX(), (int) _p2.getY());
     }
 
     public boolean equals(MyLine line) {
-        return (getWidth() == line.getWidth() && getHeight() == line.getHeight());
+        return (getShapeWidth() == line.getShapeWidth() && getShapeHeight() == line.getShapeHeight());
     }
 }

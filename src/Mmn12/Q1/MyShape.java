@@ -1,13 +1,16 @@
 package Mmn12.Q1;
 
 
+import javax.swing.JPanel;
 import java.awt.*;
 
-public abstract class MyShape implements Cloneable{
+public abstract class MyShape extends JPanel implements Cloneable{
+    private static final long serialVersionUID = 1L;
 
     protected Point _p1;
     protected Point _p2;
     protected Color _color;
+
 
     public MyShape(Point p1, Point p2, Color color){
         _p1 = p1;
@@ -40,11 +43,16 @@ public abstract class MyShape implements Cloneable{
     }
 
     protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
+        MyShape s = (MyShape) super.clone();
+        s.set_p1((Point) _p1.clone());
+        s.set_p2((Point) _p2.clone());
+        set_color(_color);
+        return s;
+
     }
 
-    public int getWidth() {
-        return (int) Math.abs(_p1.getX() - _p2.getX());
+    public int getShapeWidth() {
+        return (int) Math.abs(_p1.getX() - _p2.getX())-1;
 
     }
 
@@ -52,10 +60,19 @@ public abstract class MyShape implements Cloneable{
         return false;
     }
 
-    public int getHeight() {
-        return (int) Math.abs(_p1.getY() - _p2.getY());
+    public int getShapeHeight() {
+        return (int) Math.abs(_p1.getY() - _p2.getY())-1;
 
     }
+
+    public Dimension getPreferredSize() {
+        return new Dimension(400,400);
+    }
+
+    public void draw(Graphics g){
+        super.paintComponent(g);
+    }
+
 
 
 
