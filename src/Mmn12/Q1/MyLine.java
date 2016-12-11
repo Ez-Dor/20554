@@ -2,9 +2,7 @@ package Mmn12.Q1;
 
 import java.awt.*;
 
-/**
- * Created by Ez_Dor on 01/12/2016.
- */
+
 public class MyLine extends MyShape {
 
     public MyLine(Point p1, Point p2, Color color) {

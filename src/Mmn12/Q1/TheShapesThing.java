@@ -14,7 +14,7 @@ public class TheShapesThing extends JPanel {
     private final int MAX_POINT_LOCATION = 200, NUM_OF_SHAPES = 6;
 
     /**********
-     Constructor
+     * Constructor
      ***********/
     public TheShapesThing() throws CloneNotSupportedException {
         _shapes = new ArrayList<MyShape>();
@@ -25,9 +25,9 @@ public class TheShapesThing extends JPanel {
     }
 
 
-    /********
+    /*****************
      * private methods
-     ********/
+     *****************/
 
     private void initShapes() {
         Point[] p1 = new Point[NUM_OF_SHAPES];
@@ -75,7 +75,9 @@ public class TheShapesThing extends JPanel {
 
     }
 
-
+    /*
+    * We should validate that p2 in the right location
+    * */
     private Point getRandomP2(int minX, int maxY) {
         Random rand = new Random();
         int rand1 = rand.nextInt(MAX_POINT_LOCATION - minX) + minX;
@@ -93,22 +95,10 @@ public class TheShapesThing extends JPanel {
         return p;
     }
 
-    /********
-     * public methods
-     ********/
-    public void doTheShapesThing() {
-
-        JFrame jFrame = new JFrame();
-
-        jFrame.setTitle("Akuna Matata Let do the shape thingggg");
-        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(400, 400);
-        jFrame.add(this);
-        jFrame.setVisible(true);
-
-    }
-
     @Override
+    /**
+     * Override the painComponent and draw all the shapes to the fra,e
+     * */
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         MyShape s;
@@ -124,5 +114,25 @@ public class TheShapesThing extends JPanel {
         }
 
     }
+
+    /********
+     * public methods
+     ********/
+
+    /**
+     * The shape thing according to the "Maman" requirements
+     */
+    public void doTheShapesThing() {
+
+        JFrame jFrame = new JFrame();
+
+        jFrame.setTitle("Akuna Matata Let do the shape thingggg");
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setSize(400, 400);
+        jFrame.add(this);
+        jFrame.setVisible(true);
+
+    }
+
 
 }
