@@ -2,9 +2,7 @@ package Mmn12.Q1;
 
 import java.awt.*;
 
-/**
- * Created by Ez_Dor on 24/11/2016.
- */
+
 public abstract class MyBoundedShape extends MyShape {
     protected boolean _fill;
 
