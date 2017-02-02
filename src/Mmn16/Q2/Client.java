@@ -11,7 +11,8 @@ public class Client extends Thread {
     private boolean _isWaitingToReceiveMessages;
     private String _name;
 
-    final int NUM_OF_MESSAGE = 10;
+    final int NUM_OF_MESSAGE = 10,
+            TIME_OUT = 10000; //ten sec
 
     public Client(String _host, int _port, String _name, boolean _isWaitingToReceiveMessages) {
         this._host = _host;
@@ -26,6 +27,7 @@ public class Client extends Thread {
         try {
             DatagramSocket socket = new DatagramSocket();
             InetAddress address = InetAddress.getByName(_host);
+            socket.setSoTimeout(TIME_OUT);
             for (int i = 0; i < NUM_OF_MESSAGE; i++) {
 
                 String message = Integer.toString(i);
