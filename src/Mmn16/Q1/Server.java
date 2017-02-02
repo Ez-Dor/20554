@@ -5,7 +5,7 @@ import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/*
+/**
  * The server that can be run both as a console application or a GUI
  */
 public class Server {
@@ -21,20 +21,17 @@ public class Server {
     private boolean keepGoing;
 
 
-    /*
-     *  server constructor that receive the port to listen to for connection as parameter
-     *  in console
+    /**
+     * server constructor that receive the port to listen to for connection as parameter
+     * in console
      */
     public Server(int port) {
         this(port, null);
     }
 
     public Server(int port, ServerGUI sg) {
-        // GUI or not
         this.sg = sg;
-        // the port
         this.port = port;
-        // to display hh:mm:ss
         sdf = new SimpleDateFormat("HH:mm:ss");
         // ArrayList for the Client list
         _al = new ArrayList<ClientThread>();
@@ -194,12 +191,12 @@ public class Server {
         // the date I connect
         String date;
 
-        // Constructore
+
         ClientThread(Socket socket) {
             // a unique id
             id = ++_uniqueId;
             this.socket = socket;
-			/* Creating both Data Stream */
+            /* Creating both Data Stream */
             System.out.println("Thread trying to create Object Input/Output Streams");
             try {
                 // create output first
@@ -212,15 +209,12 @@ public class Server {
             } catch (IOException e) {
                 display("Exception creating new Input/output Streams: " + e);
                 return;
-            }
-            // have to catch ClassNotFoundException
-            // but I read a String, I am sure it will work
-            catch (ClassNotFoundException e) {
+            } catch (ClassNotFoundException e) {
             }
             date = new Date().toString() + "\n";
         }
 
-        // what will run forever
+
         public void run() {
             // to loop until LOGOUT
             boolean keepGoing = true;

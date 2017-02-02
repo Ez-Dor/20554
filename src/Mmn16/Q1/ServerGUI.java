@@ -10,17 +10,13 @@ import java.awt.event.*;
 public class ServerGUI extends JFrame implements ActionListener, WindowListener {
 
     private static final long serialVersionUID = 1L;
-    // the stop and start buttons
+
     private JButton stopStart;
-    // JTextArea for the chat room and the events
     private JTextArea chat, event;
-    // The port number
     private JTextField tPortNumber;
-    // my server
     private Server server;
 
 
-    // server constructor that receive the port to listen to for connection as parameter
     ServerGUI(int port) {
         super("Chat Server");
         server = null;

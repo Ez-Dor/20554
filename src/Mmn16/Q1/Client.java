@@ -4,35 +4,29 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-/*
- * The Client that can be run both as a console or a GUI
+/**
+ * The Client can be run both as a console or a GUI
  */
+
 public class Client {
 
-    // for I/O
-    private ObjectInputStream sInput;        // to read from the socket
-    private ObjectOutputStream sOutput;        // to write on the socket
+
+    private ObjectInputStream sInput;
+    private ObjectOutputStream sOutput;
     private Socket socket;
 
-    // if I use a GUI or not
     private ClientGUI cg;
 
-    // the server, the port and the username
     private String server, username;
     private int port;
 
-    /*
-     *  Constructor called by console mode
-     *  server: the server address
-     *  port: the port number
-     *  username: the username
-     */
+
     Client(String server, int port, String username) {
         // which calls the common constructor with the GUI set to null
         this(server, port, username, null);
     }
 
-    /*
+    /**
      * Constructor call when used from a GUI
      * in console mode the ClienGUI parameter is null
      */
@@ -44,15 +38,13 @@ public class Client {
         this.cg = cg;
     }
 
-    /*
+    /**
      * To start the dialog
      */
     public boolean start() {
-        // try to connect to the server
         try {
             socket = new Socket(server, port);
         }
-        // if it failed not much I can so
         catch (Exception ec) {
             display("Error connectiong to server:" + ec);
             return false;
@@ -72,6 +64,7 @@ public class Client {
 
         // creates the Thread to listen from the server
         new ListenFromServer().start();
+
         // Send our username to the server this is the only message that we
         // will send as a String. All other messages will be ChatMessage objects
         try {
@@ -81,21 +74,20 @@ public class Client {
             disconnect();
             return false;
         }
-        // success we inform the caller that it worked
         return true;
     }
 
-    /*
-     * To send a message to the console or the GUI
+    /**
+     * To send a message to display
      */
     private void display(String msg) {
         if (cg == null)
-            System.out.println(msg);      // println in console mode
+            System.out.println(msg);
         else
-            cg.append(msg + "\n");        // append to the ClientGUI JTextArea (or whatever)
+            cg.append(msg + "\n");
     }
 
-    /*
+    /**
      * To send a message to the server
      */
     void sendMessage(ChatMessage msg) {
@@ -106,7 +98,7 @@ public class Client {
         }
     }
 
-    /*
+    /**
      * When something goes wrong
      * Close the Input/Output streams and disconnect not much to do in the catch clause
      */
@@ -114,42 +106,24 @@ public class Client {
         try {
             if (sInput != null) sInput.close();
         } catch (Exception e) {
-        } // not much else I can do
+        }
         try {
             if (sOutput != null) sOutput.close();
         } catch (Exception e) {
-        } // not much else I can do
+        }
         try {
             if (socket != null) socket.close();
         } catch (Exception e) {
-        } // not much else I can do
+        }
 
-        // inform the GUI
+
         if (cg != null)
             cg.connectionFailed();
 
     }
 
-    /*
-     * To start the Client in console mode use one of the following command
-     * > java Client
-     * > java Client username
-     * > java Client username portNumber
-     * > java Client username portNumber serverAddress
-     * at the console prompt
-     * If the portNumber is not specified 1500 is used
-     * If the serverAddress is not specified "localHost" is used
-     * If the username is not specified "Anonymous" is used
-     * > java Client
-     * is equivalent to
-     * > java Client Anonymous 1500 localhost
-     * are eqquivalent
-     *
-     * In console mode, if an error occurs the program simply stops
-     * when a GUI id used, the GUI is informed of the disconnection
-     */
+
     public static void main(String[] args) {
-        // default values
         int portNumber = 1500;
         String serverAddress = "localhost";
         String userName = "Anonymous";
@@ -181,8 +155,7 @@ public class Client {
         }
         // create the Client object
         Client client = new Client(serverAddress, portNumber, userName);
-        // test if we can start the connection to the Server
-        // if it failed nothing we can do
+
         if (!client.start())
             return;
 
@@ -210,7 +183,7 @@ public class Client {
         client.disconnect();
     }
 
-    /*
+    /**
      * a class that waits for the message from the server and append them to the JTextArea
      * if we have a GUI or simply System.out.println() it in console mode
      */
