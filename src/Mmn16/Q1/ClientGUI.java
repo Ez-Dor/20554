@@ -128,7 +128,7 @@ public class ClientGUI extends JFrame implements ActionListener {
         }
         // if it the who is in button
         if (o == whoIsIn) {
-            client.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));
+            client.sendMessage(new ChatMessage(ChatMessage.WHO_IS_IN, ""));
             return;
         }
 

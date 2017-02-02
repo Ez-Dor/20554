@@ -200,8 +200,8 @@ public class Client {
                 break;
             }
             // message WhoIsIn
-            else if (msg.equalsIgnoreCase("WHOISIN")) {
-                client.sendMessage(new ChatMessage(ChatMessage.WHOISIN, ""));
+            else if (msg.equalsIgnoreCase("WHO_IS_IN")) {
+                client.sendMessage(new ChatMessage(ChatMessage.WHO_IS_IN, ""));
             } else {                // default to ordinary message
                 client.sendMessage(new ChatMessage(ChatMessage.MESSAGE, msg));
             }

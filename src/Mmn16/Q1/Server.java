@@ -9,13 +9,11 @@ import java.util.*;
  * The server that can be run both as a console application or a GUI
  */
 public class Server {
-    // a unique ID for each connection
-    private static int uniqueId;
-    // an ArrayList to keep the list of the Client
-    private ArrayList<ClientThread> al;
-    // if I am in a GUI
+
+
+    private static int _uniqueId;
+    private ArrayList<ClientThread> _al;
     private ServerGUI sg;
-    // to display time
     private SimpleDateFormat sdf;
     // the port number to listen for connection
     private int port;
@@ -39,7 +37,7 @@ public class Server {
         // to display hh:mm:ss
         sdf = new SimpleDateFormat("HH:mm:ss");
         // ArrayList for the Client list
-        al = new ArrayList<ClientThread>();
+        _al = new ArrayList<ClientThread>();
     }
 
     public void start() {
@@ -59,14 +57,14 @@ public class Server {
                 if (!keepGoing)
                     break;
                 ClientThread t = new ClientThread(socket);  // make a thread of it
-                al.add(t);                                    // save it in the ArrayList
+                _al.add(t);                                    // save it in the ArrayList
                 t.start();
             }
             // I was asked to stop
             try {
                 serverSocket.close();
-                for (int i = 0; i < al.size(); ++i) {
-                    ClientThread tc = al.get(i);
+                for (int i = 0; i < _al.size(); ++i) {
+                    ClientThread tc = _al.get(i);
                     try {
                         tc.sInput.close();
                         tc.sOutput.close();
@@ -126,11 +124,11 @@ public class Server {
 
         // we loop in reverse order in case we would have to remove a Client
         // because it has disconnected
-        for (int i = al.size(); --i >= 0; ) {
-            ClientThread ct = al.get(i);
+        for (int i = _al.size(); --i >= 0; ) {
+            ClientThread ct = _al.get(i);
             // try to write to the Client if it fails remove it from the list
             if (!ct.writeMsg(messageLf)) {
-                al.remove(i);
+                _al.remove(i);
                 display("Disconnected Client " + ct.username + " removed from list.");
             }
         }
@@ -139,11 +137,11 @@ public class Server {
     // for a client who logoff using the LOGOUT message
     synchronized void remove(int id) {
         // scan the array list until we found the Id
-        for (int i = 0; i < al.size(); ++i) {
-            ClientThread ct = al.get(i);
+        for (int i = 0; i < _al.size(); ++i) {
+            ClientThread ct = _al.get(i);
             // found it
             if (ct.id == id) {
-                al.remove(i);
+                _al.remove(i);
                 return;
             }
         }
@@ -199,7 +197,7 @@ public class Server {
         // Constructore
         ClientThread(Socket socket) {
             // a unique id
-            id = ++uniqueId;
+            id = ++_uniqueId;
             this.socket = socket;
 			/* Creating both Data Stream */
             System.out.println("Thread trying to create Object Input/Output Streams");
@@ -250,11 +248,11 @@ public class Server {
                         broadcast((username + " disconnected with a LOGOUT message."));
                         keepGoing = false;
                         break;
-                    case ChatMessage.WHOISIN:
+                    case ChatMessage.WHO_IS_IN:
                         writeMsg("List of the users connected at " + sdf.format(new Date()) + "\n");
-                        // scan al the users connected
-                        for (int i = 0; i < al.size(); ++i) {
-                            ClientThread ct = al.get(i);
+                        // scan _al the users connected
+                        for (int i = 0; i < _al.size(); ++i) {
+                            ClientThread ct = _al.get(i);
                             writeMsg((i + 1) + ") " + ct.username + " since " + ct.date);
                         }
                         break;
